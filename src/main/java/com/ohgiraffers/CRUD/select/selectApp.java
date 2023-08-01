@@ -39,7 +39,7 @@ public class selectApp {
             String query = prop.getProperty("selectMENU");
 
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, categoryCode);
+            pstmt.setInt(1, mdto.getCategoryCode());
             rset = pstmt.executeQuery();
 
             while(rset.next()){
