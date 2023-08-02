@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -22,12 +20,11 @@ public class deleteApp {
         PreparedStatement pstmt = null;
         int result = 0;
 
-        List<menuDTO> menulist = new ArrayList<menuDTO>();
         menuDTO mdto = new menuDTO();
 
         Scanner sc = new Scanner(System.in);
         System.out.println("메뉴에서 삭제할 카테고리의 코드를 입력해주세요 : ");
-        int categoryCode = sc.nextInt();
+        String categoryCode = sc.nextLine();
 
         mdto.setCategoryCode(categoryCode);
 
@@ -37,9 +34,7 @@ public class deleteApp {
             prop.loadFromXML(new FileInputStream("src/main/java/com/ohgiraffers/mapper/menut-query.xml"));
             String query = prop.getProperty("deleteMENU");
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, mdto.getCategoryCode());
-
-            menulist.add(mdto);
+            pstmt.setString(1, mdto.getCategoryCode());
 
             result = pstmt.executeUpdate();
 

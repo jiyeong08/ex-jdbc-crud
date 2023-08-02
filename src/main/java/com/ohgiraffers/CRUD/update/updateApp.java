@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -22,18 +20,15 @@ public class updateApp {
         PreparedStatement pstmt = null;
         int result = 0;
 
-        List<menuDTO> menulist = new ArrayList<menuDTO>();
         menuDTO mdto = new menuDTO();
 
         Scanner sc = new Scanner(System.in);
         System.out.println("변경된 가격을 입력해주세요 : ");
-        int menuPrice = sc.nextInt();
-        sc.nextLine();
+        String menuPrice = sc.nextLine();
         System.out.println("변경된 주문가능상태를 입력해주세요 : ");
         String orderableStatus = sc.nextLine();
         System.out.println("변경된 카테고리코드를 입력해주세요 : ");
-        int categoryCode = sc.nextInt();
-        sc.nextLine();
+        String categoryCode = sc.nextLine();
         System.out.println("변경하실 메뉴의 이름을 확인해주세요 : ");
         String menuName = sc.nextLine();
 
@@ -49,14 +44,12 @@ public class updateApp {
             String query = prop.getProperty("updateMENU");
 
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, mdto.getMenuPrice());
+            pstmt.setString(1, mdto.getMenuPrice());
             pstmt.setString(2, mdto.getOrderableStatus());
-            pstmt.setInt(3, mdto.getCategoryCode());
+            pstmt.setString(3, mdto.getCategoryCode());
             pstmt.setString(4, mdto.getMenuName());
 
             result = pstmt.executeUpdate();
-
-            menulist.add(mdto);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
