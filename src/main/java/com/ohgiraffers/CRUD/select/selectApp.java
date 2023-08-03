@@ -29,9 +29,8 @@ public class selectApp {
         String categoryCode = sc.nextLine();
 
             List<menuDTO> menulist = new ArrayList<>();
-            menuDTO mdto = new menuDTO();
 
-        mdto.setCategoryCode(categoryCode);
+
 
         Properties prop = new Properties();
 
@@ -39,10 +38,12 @@ public class selectApp {
             String query = prop.getProperty("selectMENU");
 
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1, mdto.getCategoryCode());
+            pstmt.setString(1, categoryCode);
             rset = pstmt.executeQuery();
 
             while(rset.next()){
+                menuDTO mdto = new menuDTO();
+
                 mdto.setMenuCode(rset.getString("menu_code"));
                 mdto.setMenuName(rset.getString("menu_name"));
                 mdto.setMenuPrice(rset.getString("menu_price"));
